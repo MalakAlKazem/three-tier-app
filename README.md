@@ -140,7 +140,20 @@ three-tier-app/
    cd ..
    ```
 
-2. **Apply Kubernetes configurations**
+2. **Load images into your cluster** (for local clusters like minikube or kind)
+   ```bash
+   # For minikube
+   minikube image load three-tier-app-frontend:latest
+   minikube image load three-tier-app-backend:latest
+   minikube image load three-tier-app-database:latest
+   
+   # For kind
+   kind load docker-image three-tier-app-frontend:latest
+   kind load docker-image three-tier-app-backend:latest
+   kind load docker-image three-tier-app-database:latest
+   ```
+
+3. **Apply Kubernetes configurations**
    ```bash
    # Deploy database
    kubectl apply -f k8s/database-deployment.yml
@@ -155,19 +168,19 @@ three-tier-app/
    kubectl apply -f k8s/frontend-service.yml
    ```
 
-3. **Check deployment status**
+4. **Check deployment status**
    ```bash
    kubectl get pods
    kubectl get services
    ```
 
-4. **Access the application**
+5. **Access the application**
    ```bash
    # Get the frontend service URL (minikube)
    minikube service frontend --url
    ```
 
-5. **Clean up**
+6. **Clean up**
    ```bash
    kubectl delete -f k8s/
    ```
@@ -250,8 +263,8 @@ Check the health status of the backend and database connection.
 
 All services include health checks for monitoring:
 
-- **Frontend**: `http://localhost/health`
-- **Backend**: `http://localhost:5000/api/health`
+- **Frontend**: `http://localhost/health` (returns plain text: "healthy")
+- **Backend**: `http://localhost:5000/api/health` (returns JSON with API and database status)
 - **Database**: PostgreSQL readiness check via `pg_isready`
 
 ## 🗄️ Database
