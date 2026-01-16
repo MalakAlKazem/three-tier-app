@@ -92,7 +92,7 @@ three-tier-app/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MalakAlKazem/three-tier-app.git
+   git clone https://github.com/your-username/three-tier-app.git
    cd three-tier-app
    ```
 
